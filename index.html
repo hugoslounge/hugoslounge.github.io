@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#141414">
+<title>HUGOS – Getränkekarte</title>
+<style>
+  :root {
+    --bg: #141414;
+    --text: #f2efe8;
+    --gold: #c2a56b;
+    --muted: #a9a294;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    line-height: 1.45;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 28px 20px 48px; }
+  h1 {
+    margin: 0 0 18px;
+    text-align: center;
+    color: var(--gold);
+    font-size: 2.4rem;
+    letter-spacing: 0.06em;
+  }
+  hr { border: 0; border-top: 2px solid var(--gold); margin: 22px 0; }
+  hr.thin { border-top-width: 1px; opacity: .6; margin: 16px 0; }
+  h2 {
+    margin: 34px 0 6px;
+    color: var(--gold);
+    font-size: 1.35rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .sub { color: var(--gold); font-size: .95rem; margin: 0 0 6px; }
+  .sub b { font-weight: 700; }
+  .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: baseline;
+    padding: 3px 0;
+  }
+  .row .price { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .item { margin: 14px 0; }
+  .item .name { display: block; }
+  .item .desc { display: block; font-size: .85rem; color: var(--muted); line-height: 1.4; }
+  .row .desc { display: block; font-size: .85rem; color: var(--muted); }
+  ul.plain { list-style: none; margin: 8px 0 0; padding: 0; }
+  ul.plain li { padding: 2px 0; }
+  .hint { text-align: center; color: var(--muted); font-size: .85rem; margin-top: 30px; }
+  .pdf { text-align: center; margin-top: 14px; font-size: .85rem; }
+  .pdf a { color: var(--gold); }
+  @media print {
+    body { background: #fff; color: #000; }
+    h1, h2, .sub { color: #7a6126; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>HUGOS</h1>
+  <hr>
+
+  <!-- COCKTAILS -->
+  <h2>Cocktails</h2>
+  <p class="sub" style="color:var(--text)">11,50 €</p>
+  <p class="sub">Happy Hours 20:00 Uhr – 00:00 Uhr: <b>9,00 €</b></p>
+  <hr class="thin">
+
+  <div class="item"><span class="name">Gin Basil Smash</span><span class="desc">Gin, frisches Basilikum, Zitronensaft, Zuckersirup</span></div>
+  <div class="item"><span class="name">Espresso Martini</span><span class="desc">Vodka, Espresso, Kaffeelikör, Zuckersirup</span></div>
+  <div class="item"><span class="name">Negroni</span><span class="desc">Gin, Campari, roter Wermut</span></div>
+  <div class="item"><span class="name">Margarita</span><span class="desc">Tequila, Triple Sec, Limettensaft</span></div>
+  <div class="item"><span class="name">Moscow Mule</span><span class="desc">Vodka, Limettensaft, Ginger Beer</span></div>
+  <div class="item"><span class="name">London Mule</span><span class="desc">Gin, Limettensaft, Ginger Beer</span></div>
+  <div class="item"><span class="name">Irish Mule</span><span class="desc">Irish Whiskey, Limettensaft, Ginger Beer</span></div>
+  <div class="item"><span class="name">Mexican Mule</span><span class="desc">Tequila, Limettensaft, Ginger Beer</span></div>
+
+  <!-- ALKOHOLFREI -->
+  <h2>Alkoholfrei</h2>
+  <p class="sub" style="color:var(--text)">9 €</p>
+  <p class="sub">Happy Hours 20:00 Uhr – 00:00 Uhr: <b>6,50 €</b></p>
+  <hr class="thin">
+
+  <div class="item"><span class="name">Basil Smash Drivers Version</span><span class="desc">Gin Zero, frisches Basilikum, Zitronensaft, Zuckersirup</span></div>
+  <div class="item"><span class="name">London Mule Drivers Version</span><span class="desc">Gin Zero, Limettensaft, Ginger Beer</span></div>
+
+  <!-- LONGDRINKS -->
+  <h2>Longdrinks</h2>
+  <p class="sub" style="color:var(--text)">10,50 €</p>
+  <p class="sub">Happy Hours 20:00 Uhr – 00:00 Uhr: <b>8,00 €</b></p>
+  <hr class="thin">
+
+  <ul class="plain">
+    <li>Jack Daniels Cola</li>
+    <li>Cuba Libre</li>
+    <li>Gin Tonic</li>
+    <li>Vodka Cranberry</li>
+    <li>Vodka Lemon</li>
+    <li>Bacardi Cola</li>
+    <li>Southern Comfort Ginger Ale</li>
+    <li>Bacardi Razz Sprite</li>
+    <li>Vodka Red Bull</li>
+    <li>Jägermeister Red Bull</li>
+  </ul>
+
+  <hr>
+
+  <!-- BIER -->
+  <h2>Bier</h2>
+  <div class="row"><span>Bayreuther 0,3 L</span><span class="price">3,50 €</span></div>
+  <div class="row"><span>Heineken 0,3 L</span><span class="price">3,50 €</span></div>
+  <div class="row"><span>Desperados 0,3 L</span><span class="price">4,50 €</span></div>
+  <div class="row"><span>Gutmann Weizen 0,5 L</span><span class="price">3,90 €</span></div>
+  <div class="row"><span>Radler 0,5 L</span><span class="price">3,60 €</span></div>
+
+  <!-- WEIN & CO -->
+  <h2>Wein &amp; Co</h2>
+  <div class="row"><span>Hauswein rot | weiß 0,2 L</span><span class="price">5,50 €</span></div>
+  <div class="row"><span>Hauswein rot | weiß 0,7 L</span><span class="price">16,50 €</span></div>
+  <div class="row"><span>Weinschorle 0,4 L</span><span class="price">5,50 €</span></div>
+  <div class="row"><span>Aperol Spritz 0,4 L<span class="desc">Prosecco, Aperol, Soda</span></span><span class="price">5,50 €</span></div>
+  <div class="row"><span>Sarti Spritz 0,4 L<span class="desc">Sarti Rosa, Prosecco, Soda</span></span><span class="price">5,50 €</span></div>
+  <div class="row"><span>Lillet Wild Berry 0,4 L<span class="desc">Lillet Blanc, Russian Wild Berry</span></span><span class="price">5,50 €</span></div>
+
+  <!-- SHOTS -->
+  <h2>Shots</h2>
+  <p class="sub">2 cl · 2,50 €</p>
+  <p style="margin:8px 0 0">Sambuca · Jägermeister · Vodka · Tequila weiß | braun · Ficken</p>
+
+  <!-- SOFTDRINKS -->
+  <h2>Softdrinks</h2>
+  <p class="sub">0,2 L · je 3,50 €</p>
+  <ul class="plain">
+    <li>Coca-Cola · Coca-Cola Light</li>
+    <li>Fanta · Sprite</li>
+    <li>Mezzo Mix</li>
+    <li>Schweppes: Bitter Lemon | Ginger Ale | Wild Berry | Tonic Water</li>
+  </ul>
+  <hr class="thin">
+  <div class="row"><span>Red Bull 0,25 L<span class="desc">diverse Sorten</span></span><span class="price">3,50 €</span></div>
+  <div class="row"><span>Arizona Iced Tea 0,5 L</span><span class="price">3,50 €</span></div>
+  <div class="row"><span>Acqua Morelli 0,25 L</span><span class="price">3,50 €</span></div>
+  <div class="row"><span>Acqua Morelli 0,75 L<span class="desc">spritzig | still</span></span><span class="price">8,00 €</span></div>
+
+  <!-- SÄFTE -->
+  <h2>Säfte &amp; Schorlen</h2>
+  <p class="sub">0,2 L · je 3,50 €</p>
+  <p style="margin:8px 0 0">Apfel · Maracuja · Cranberry · Orange · Ananas · Apfelsaftschorle</p>
+
+  <hr>
+
+  <!-- SHISHA -->
+  <h2 style="margin-top:0">Shisha · 15 €</h2>
+  <p style="margin:8px 0 0">Ice Bon Bon | Doppel Apfel | Okolom | Love 66 | Ice Kaktus | Traube Minze | Cold Lime | Pfirsich Minze | Türkischer Apfel | Falim</p>
+
+  <hr>
+  <p class="hint">Für Informationen zu Zusatzstoffen fragen Sie bitte unser Servicepersonal</p>
+  <p class="pdf"><a href="karte.pdf">Karte als PDF</a></p>
+
+</div>
+</body>
+</html>
