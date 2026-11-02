@@ -59,9 +59,84 @@
   .hint { text-align: center; color: var(--muted); font-size: .85rem; margin-top: 30px; }
   .pdf { text-align: center; margin-top: 14px; font-size: .85rem; }
   .pdf a { color: var(--gold); }
+  .wrap { padding-bottom: 110px; }
+
+  /* Feste Schaltflaeche unten */
+  .fab {
+    position: fixed;
+    left: 50%; bottom: 16px;
+    transform: translateX(-50%);
+    z-index: 10;
+    background: var(--gold);
+    color: #141414;
+    border: 0;
+    border-radius: 999px;
+    padding: 13px 22px;
+    font: inherit;
+    font-size: .95rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+    box-shadow: 0 6px 22px rgba(0,0,0,.55);
+    cursor: pointer;
+    max-width: calc(100% - 32px);
+  }
+  .fab:active { transform: translateX(-50%) scale(.98); }
+
+  /* Popup */
+  dialog {
+    width: min(520px, calc(100% - 24px));
+    max-height: calc(100% - 24px);
+    margin: auto;
+    padding: 0;
+    border: 1px solid var(--gold);
+    border-radius: 14px;
+    background: #1b1b1b;
+    color: var(--text);
+    font: inherit;
+    overflow: auto;
+  }
+  dialog::backdrop { background: rgba(0,0,0,.72); }
+  .dlg { padding: 22px 20px 22px; position: relative; }
+  .dlg h3 { margin: 0 28px 4px 0; color: var(--gold); font-size: 1.3rem; letter-spacing: .03em; }
+  .dlg p.lead { margin: 0 0 14px; color: var(--muted); font-size: .92rem; }
+  .close {
+    position: absolute; top: 10px; right: 10px;
+    width: 38px; height: 38px;
+    background: transparent; color: var(--text);
+    border: 0; font-size: 1.6rem; line-height: 1; cursor: pointer;
+  }
+  .dlg label { display: block; margin: 12px 0 4px; font-size: .85rem; color: var(--gold); }
+  .dlg input, .dlg select, .dlg textarea {
+    width: 100%;
+    background: #111;
+    color: var(--text);
+    border: 1px solid #4a4130;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font: inherit;
+    font-size: 16px; /* verhindert Zoom auf dem iPhone */
+  }
+  .dlg input:focus, .dlg select:focus, .dlg textarea:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+  .dlg textarea { min-height: 80px; resize: vertical; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .actions { display: grid; gap: 10px; margin-top: 18px; }
+  .btn {
+    display: block; width: 100%;
+    text-align: center; text-decoration: none;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+    background: transparent; color: var(--gold);
+    font: inherit; font-weight: 700; cursor: pointer;
+  }
+  .btn.primary { background: var(--gold); color: #141414; }
+  .small { margin: 14px 0 0; font-size: .78rem; color: var(--muted); }
+  [hidden] { display: none !important; }
+
   @media print {
     body { background: #fff; color: #000; }
     h1, h2, .sub { color: #7a6126; }
+    .fab, dialog { display: none !important; }
   }
 </style>
 </head>
@@ -169,5 +244,184 @@
   <p class="pdf"><a href="karte.pdf">Karte als PDF</a></p>
 
 </div>
+
+<button class="fab" id="openDlg" type="button">Reservierung &amp; Events</button>
+
+<dialog id="dlg" aria-labelledby="dlgTitle">
+  <div class="dlg">
+    <button class="close" id="closeDlg" type="button" aria-label="Schließen">&times;</button>
+    <h3 id="dlgTitle">Reservierung &amp; Events</h3>
+    <p class="lead">Geöffnet Freitag &amp; Samstag, 20:00 – 02:00 Uhr. Schick uns deine Anfrage, wir melden uns bei dir.</p>
+
+    <form id="form" novalidate>
+      <input type="text" name="_honey" id="honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
+      <label for="kind">Worum geht es?</label>
+      <select id="kind">
+        <option value="Tischreservierung">Tischreservierung</option>
+        <option value="Firmenevent / Feier">Firmenevent / Feier</option>
+      </select>
+
+      <div class="two">
+        <div>
+          <label for="date">Datum</label>
+          <input id="date" type="date">
+        </div>
+        <div>
+          <label for="time">Uhrzeit</label>
+          <input id="time" type="time" value="20:00">
+        </div>
+      </div>
+
+      <div class="two">
+        <div>
+          <label for="people">Personen</label>
+          <input id="people" type="number" min="1" max="200" inputmode="numeric" value="4">
+        </div>
+        <div>
+          <label for="name">Name</label>
+          <input id="name" type="text" autocomplete="name" placeholder="Dein Name">
+        </div>
+      </div>
+
+      <div id="companyWrap" hidden>
+        <label for="company">Firma / Anlass</label>
+        <input id="company" type="text" placeholder="z. B. Firma XY, Weihnachtsfeier">
+      </div>
+
+      <label for="phone">Telefon oder E-Mail für Rückmeldung</label>
+      <input id="phone" type="text" autocomplete="tel" placeholder="Wie erreichen wir dich?">
+
+      <label for="note">Nachricht (optional)</label>
+      <textarea id="note" placeholder="Wünsche, Budget, Sitzplätze, Allergien …"></textarea>
+
+      <div class="actions">
+        <button class="btn primary" id="submitBtn" type="submit">Anfrage absenden</button>
+      </div>
+      <p class="small" id="err" role="alert" hidden></p>
+      <p class="small">Mit dem Absenden werden deine Angaben per E-Mail an uns übermittelt (technisch über den Formular-Dienst FormSubmit). Wir nutzen sie nur zur Bearbeitung deiner Anfrage. Die Anfrage ist erst bestätigt, wenn wir dir antworten.</p>
+    </form>
+
+    <div id="done" hidden>
+      <h3 style="margin-top:8px">Danke!</h3>
+      <p class="lead">Deine Anfrage ist bei uns eingegangen. Wir melden uns so schnell wie möglich bei dir.</p>
+      <div class="actions"><button class="btn primary" id="doneClose" type="button">Schließen</button></div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  // ---- HIER ZIEL-ADRESSE FUER ANFRAGEN ----
+  var FORM_EMAIL = "reservierung@hugos.de";
+  // -----------------------------------------
+
+  var dlg = document.getElementById("dlg");
+  var form = document.getElementById("form");
+  var done = document.getElementById("done");
+  var kind = document.getElementById("kind");
+  var err = document.getElementById("err");
+  var submitBtn = document.getElementById("submitBtn");
+
+  // Fruehestes Datum = heute
+  var d = document.getElementById("date");
+  var now = new Date();
+  d.min = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
+
+  function openDlg() {
+    form.hidden = false; done.hidden = true;
+    if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", "");
+  }
+  function closeDlg() {
+    if (typeof dlg.close === "function") dlg.close(); else dlg.removeAttribute("open");
+  }
+  document.getElementById("openDlg").addEventListener("click", openDlg);
+  document.getElementById("closeDlg").addEventListener("click", closeDlg);
+  document.getElementById("doneClose").addEventListener("click", closeDlg);
+  // Klick auf den abgedunkelten Hintergrund schliesst das Popup
+  dlg.addEventListener("click", function (e) { if (e.target === dlg) closeDlg(); });
+
+  kind.addEventListener("change", function () {
+    document.getElementById("companyWrap").hidden = (kind.value === "Tischreservierung");
+  });
+
+  function val(id) { return document.getElementById(id).value.trim(); }
+  function deDate(v) { return v ? v.split("-").reverse().join(".") : "-"; }
+
+  function buildMessage() {
+    var lines = [
+      "Anfrage: " + kind.value,
+      "Datum: " + deDate(val("date")),
+      "Uhrzeit: " + (val("time") || "-"),
+      "Personen: " + (val("people") || "-"),
+      "Name: " + val("name")
+    ];
+    if (kind.value !== "Tischreservierung" && val("company")) lines.push("Firma / Anlass: " + val("company"));
+    lines.push("Rückmeldung an: " + val("phone"));
+    if (val("note")) lines.push("", val("note"));
+    return lines.join("\n");
+  }
+
+  function showError(html) { err.innerHTML = html; err.hidden = false; }
+
+  function mailtoLink() {
+    var subject = "Hugos: " + kind.value + " am " + deDate(val("date"));
+    return "mailto:" + FORM_EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(buildMessage());
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    var missing = [];
+    if (!val("date")) missing.push("Datum");
+    if (!val("people")) missing.push("Personenzahl");
+    if (!val("name")) missing.push("Name");
+    if (!val("phone")) missing.push("Kontakt für die Rückmeldung");
+    if (missing.length) { showError("Bitte noch ausfüllen: " + missing.join(", ")); return; }
+    err.hidden = true;
+
+    // Honeypot: Bots fuellen das versteckte Feld aus, dann still abbrechen
+    if (document.getElementById("honey").value) { form.hidden = true; done.hidden = false; return; }
+
+    var payload = {
+      "Anfrage": kind.value,
+      "Datum": deDate(val("date")),
+      "Uhrzeit": val("time"),
+      "Personen": val("people"),
+      "Name": val("name"),
+      "Firma / Anlass": val("company"),
+      "Rückmeldung an": val("phone"),
+      "Nachricht": val("note"),
+      "_subject": "Hugos: " + kind.value + " am " + deDate(val("date")) + " (" + val("people") + " Pers.)",
+      "_template": "table",
+      "_captcha": "false"
+    };
+    // Enthaelt der Kontakt eine E-Mail, kann direkt auf die Mail geantwortet werden
+    if (val("phone").indexOf("@") > 0) payload.email = val("phone");
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Wird gesendet …";
+
+    fetch("https://formsubmit.co/ajax/" + FORM_EMAIL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(payload)
+    })
+    .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+    .then(function (res) {
+      if (res.ok && String(res.j.success) === "true") {
+        form.hidden = true; done.hidden = false;
+        form.reset();
+      } else {
+        throw new Error("rejected");
+      }
+    })
+    .catch(function () {
+      showError('Das Senden hat leider nicht geklappt. Bitte <a href="' + mailtoLink() + '" style="color:var(--gold)">hier per E-Mail senden</a> oder versuche es später erneut.');
+    })
+    .then(function () {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Anfrage absenden";
+    });
+  });
+</script>
 </body>
 </html>
